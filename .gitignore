@@ -60,3 +60,6 @@ GTAGS
 *.orig
 *~
 \#*#
+examples/check_events
+examples/showevtinfo
+tests/validate
