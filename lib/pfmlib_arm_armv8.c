@@ -43,6 +43,7 @@
 #include "events/arm_neoverse_n1_events.h"	/* ARM Neoverse N1 table */
 #include "events/arm_neoverse_v1_events.h"	/* Arm Neoverse V1 table */
 #include "events/arm_hisilicon_kunpeng_events.h" /* HiSilicon Kunpeng PMU tables */
+#include "events/arm_apple_events.h"	/* Apple Silicon (M1-only hack fort now) */
 
 static int
 pfm_arm_detect_n1(void *this)
@@ -146,7 +147,16 @@ static int
 pfm_arm_detect_hisilicon_kunpeng(void *this)
 {
 	/* Hisilicon Kunpeng */
-	arm_cpuid_t attr = { .impl = 0x48, .arch = 8, .part = 0xd01 };
+	arm_cpuid_t attr = { .impl = 0x61, .arch = 8, .part = 0x022 };
+
+	return pfm_arm_detect(&attr, NULL);
+}
+
+static int
+pfm_arm_detect_apple(void *this)
+{
+	/* Apple Silicon (M1-only hack fort now) */
+	arm_cpuid_t attr = { .impl = 0x41, .arch = 8, .part = 0xd82 };
 
 	return pfm_arm_detect(&attr, NULL);
 }
@@ -428,6 +438,32 @@ pfmlib_pmu_t arm_v1_support={
 	.pmu_detect		= pfm_arm_detect_v1,
 	.max_encoding		= 1,
 	.num_cntrs		= 6,
+
+	.get_event_encoding[PFM_OS_NONE] = pfm_arm_get_encoding,
+	 PFMLIB_ENCODE_PERF(pfm_arm_get_perf_encoding),
+	.get_event_first	= pfm_arm_get_event_first,
+	.get_event_next		= pfm_arm_get_event_next,
+	.event_is_valid		= pfm_arm_event_is_valid,
+	.validate_table		= pfm_arm_validate_table,
+	.get_event_info		= pfm_arm_get_event_info,
+	.get_event_attr_info	= pfm_arm_get_event_attr_info,
+	 PFMLIB_VALID_PERF_PATTRS(pfm_arm_perf_validate_pattrs),
+	.get_event_nattrs	= pfm_arm_get_event_nattrs,
+};
+
+
+pfmlib_pmu_t arm_apple_support={
+	.desc			= "Apple Silicon M1",
+	.name			= "arm_apple",
+	.pmu			= PFM_PMU_APPLE,
+	.pme_count		= LIBPFM_ARRAY_SIZE(arm_apple_pe),
+	.type			= PFM_PMU_TYPE_CORE,
+	.supported_plm  = ARMV8_PLM,
+	.pe             = arm_apple_pe,
+
+	.pmu_detect		= pfm_arm_detect_apple,
+	.max_encoding		= 1,
+	.num_cntrs		= 11,
 
 	.get_event_encoding[PFM_OS_NONE] = pfm_arm_get_encoding,
 	 PFMLIB_ENCODE_PERF(pfm_arm_get_perf_encoding),

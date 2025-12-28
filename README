@@ -23,7 +23,8 @@ prepare the OS-specific data structures needed by the kernel to setup the
 event.
 
 The current libpfm4 provides support for the perf_events interface which was
-introduced in Linux v2.6.31. Perfmon support is not present yet.
+introduced in Linux v2.6.31. Perfmon support is not present yet. On Apple
+operating systems, the kpc interface is supported.
 
 The library does not make any performance monitoring system calls. It is
 portable and supports other operating system environments beyond Linux,
@@ -86,6 +87,7 @@ The library supports many PMUs. The current version can handle:
 		Arm Neoverse V1, V2, V3
 		Arm Neoverse N1, N2, N3
 		Huawei HiSilicon Kunpeng 920
+		Apple Sillicon (M1, others TODO)
 
 	- For SPARC
 		Ultra I, II

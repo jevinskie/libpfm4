@@ -836,6 +836,9 @@ static pfmlib_pmu_t *pfmlib_pmus[]=
 	&perf_event_support,
 	&perf_event_raw_support,
 #endif
+#ifdef __APPLE__
+	&kpc_support,
+#endif
 };
 #define PFMLIB_NUM_PMUS	(int)(sizeof(pfmlib_pmus)/sizeof(pfmlib_pmu_t *))
 
@@ -847,6 +850,9 @@ static pfmlib_os_t *pfmlib_oses[]={
 #ifdef __linux__
 	&pfmlib_os_perf,
 	&pfmlib_os_perf_ext,
+#endif
+#ifdef __APPLE__
+	&pfmlib_os_kpc,
 #endif
 };
 #define PFMLIB_NUM_OSES	(int)(sizeof(pfmlib_oses)/sizeof(pfmlib_os_t *))

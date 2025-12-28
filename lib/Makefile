@@ -227,7 +227,8 @@ SRCS   += pfmlib_arm.c \
 	  pfmlib_arm_armv8.c \
 	  pfmlib_arm_armv9.c \
 	  pfmlib_arm_armv8_thunderx2_unc.c \
-	  pfmlib_arm_armv8_kunpeng_unc.c
+	  pfmlib_arm_armv8_kunpeng_unc.c \
+	  pfmlib_arm_apple.c
 
 CFLAGS += -DCONFIG_PFMLIB_ARCH_ARM64
 endif
