@@ -467,6 +467,7 @@ pfmlib_pmu_t arm_apple_support={
 
 	.get_event_encoding[PFM_OS_NONE] = pfm_arm_get_encoding,
 	 PFMLIB_ENCODE_PERF(pfm_arm_get_perf_encoding),
+	 PFMLIB_ENCODE_KPC(pfm_arm_get_kpc_encoding),
 	.get_event_first	= pfm_arm_get_event_first,
 	.get_event_next		= pfm_arm_get_event_next,
 	.event_is_valid		= pfm_arm_event_is_valid,
