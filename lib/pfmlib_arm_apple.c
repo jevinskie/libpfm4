@@ -55,29 +55,3 @@ pfmlib_pmu_t arm_apple_support={
 	 PFMLIB_VALID_PERF_PATTRS(pfm_arm_perf_validate_pattrs),
 	.get_event_nattrs	= pfm_arm_get_event_nattrs,
 };
-
-pfmlib_pmu_t arm_apple_support={
-	.desc			= "Sparc Apple II",
-	.name			= "apple",
-	.pmu			= PFM_PMU_ARM_APPLE2,
-	.pme_count		= LIBPFM_ARRAY_SIZE(apple_pe),
-	.type			= PFM_PMU_TYPE_CORE,
-	.supported_plm		= APPLE2_PLM,
-	.num_cntrs		= 2,
-	.max_encoding		= 2,
-	.pe			= apple_pe,
-	.atdesc			= NULL,
-	.flags			= 0,
-
-	.pmu_detect		= pfm_arm_detect,
-	.get_event_encoding[PFM_OS_NONE] = pfm_arm_get_encoding,
-	 PFMLIB_ENCODE_PERF(pfm_arm_get_perf_encoding),
-	.get_event_first	= pfm_arm_get_event_first,
-	.get_event_next		= pfm_arm_get_event_next,
-	.event_is_valid		= pfm_arm_event_is_valid,
-	.validate_table		= pfm_arm_validate_table,
-	.get_event_info		= pfm_arm_get_event_info,
-	.get_event_attr_info	= pfm_arm_get_event_attr_info,
-	 PFMLIB_VALID_PERF_PATTRS(pfm_arm_perf_validate_pattrs),
-	.get_event_nattrs	= pfm_arm_get_event_nattrs,
-};
